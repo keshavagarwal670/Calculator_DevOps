@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
+
 function App() {
   const [display, setDisplay] = useState('0');
   const [expression, setExpression] = useState('');
@@ -18,6 +19,12 @@ function App() {
     } else if (value === 'C') {
       setDisplay('0');
       setExpression('');
+    } else if (value === 'log') {
+      setExpression(expression + 'Math.log(');
+      setDisplay(display + 'log(');
+    } else if (value === 'pow') {
+      setExpression(expression + '**');
+      setDisplay(display + '^');
     } else {
       setExpression(expression + value);
       if (display === '0' || display === 'Error') {
@@ -49,6 +56,8 @@ function App() {
         <button onClick={() => handleClick('=')}>=</button>
         <button onClick={() => handleClick('0')}>0</button>
         <button onClick={() => handleClick('.')}>.</button>
+        <button onClick={() => handleClick('log')}>log</button>
+        <button onClick={() => handleClick('pow')}>^</button>
       </div>
     </div>
   );
