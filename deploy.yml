@@ -1,12 +1,15 @@
+
 ---
 - name: Pull Docker Image from Docker Hub
   hosts: localhost
   remote_user: agarwalkeshav670
   become: false
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
   tasks:
     - name: Pull Docker Image
       docker_image:
-        name: "agarwalkeshav670/calculators"
+        name: "agarwalkeshav670/calculator"
         source: pull
       register: docker_pull_result
 
@@ -18,5 +21,10 @@
       service:
         name: docker
         state: started
+    
+    - name: Remove existing container if running
+      shell: docker rm -f calculator
+      ignore_errors: true
+
     - name: Running container
-      shell: docker run -it -d --name calculators1 agarwalkeshav670/calculators
+      shell: docker run -it -d --name calculator agarwalkeshav670/calculator
