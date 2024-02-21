@@ -25,6 +25,36 @@ function App() {
     } else if (value === 'pow') {
       setExpression(expression + '**');
       setDisplay(display + '^');
+    } else if (value === '!') {
+      // Factorial operation
+      try {
+        const num = parseInt(expression);
+        let factorial = 1;
+        for (let i = 1; i <= num; i++) {
+          factorial *= i;
+        }
+        setDisplay(factorial);
+        setExpression(factorial.toString());
+      } catch (error) {
+        setDisplay('Error');
+        setExpression('');
+      }
+    } else if (value === 'sqrt') {
+      // Square root operation
+      try {
+        const num = parseFloat(expression);
+        if (num >= 0) {
+          const sqrt = Math.sqrt(num);
+          setDisplay(sqrt);
+          setExpression(sqrt.toString());
+        } else {
+          setDisplay('Error');
+          setExpression('');
+        }
+      } catch (error) {
+        setDisplay('Error');
+        setExpression('');
+      }
     } else {
       setExpression(expression + value);
       if (display === '0' || display === 'Error') {
@@ -58,6 +88,8 @@ function App() {
         <button onClick={() => handleClick('.')}>.</button>
         <button onClick={() => handleClick('log')}>log</button>
         <button onClick={() => handleClick('pow')}>^</button>
+        <button onClick={() => handleClick('!')}>!</button>
+        <button onClick={() => handleClick('sqrt')}>√</button>
       </div>
     </div>
   );
